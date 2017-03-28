@@ -1,0 +1,29 @@
+<html>
+    <head>
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+ <style>
+      body
+      {
+          font-family: 'Nunito Sans', sans-serif;
+          font-size: 20px;
+      }
+    </style>
+
+        <title>Polls App Index</title>
+    </head>
+<body>
+    <h1>Poll Index</h1>
+    <br>
+{% if latest_poll_list %}
+    <ul>
+    {% for poll in latest_poll_list %}
+        <li><a href="{% url 'polls:detail' poll.id %}">{{ poll.question }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available. Check back soon.</p>
+{% endif %}
+</body>
+</html>

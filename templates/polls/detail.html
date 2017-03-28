@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>{{ poll.question }} || posted by: {{ poll.nickname }}</title>
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+ <style>
+      body
+      {
+          font-family: 'Nunito Sans', sans-serif;
+          font-size: 15px;
+      }
+    </style>
+</head>
+<h2>Posted by : {{ poll.nickname }}</h2>
+<h1>{{ poll.question }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'polls:vote' poll.id %}" method="post">
+{% csrf_token %}
+{% for choice in poll.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+{% endfor %}
+<br/>
+<label for="guestid">Your Name:</label>
+<br/>
+<textarea cols="40" rows="1" name="comments" id="comments"></textarea><br />
+<br/>
+<label for="comments">Comments</label>
+<br/>
+<textarea cols="40" rows="5" name="comments" id="comments"></textarea><br />
+<input type="submit" value="Vote" />
+</form>
+</html>
